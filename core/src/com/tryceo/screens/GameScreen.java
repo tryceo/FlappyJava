@@ -2,9 +2,9 @@ package com.tryceo.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL20;
 import com.tryceo.gameworld.GameRenderer;
 import com.tryceo.gameworld.GameWorld;
+import com.tryceo.helpers.InputHandler;
 
 /**
  * Created by Jack on 12/29/2014.
@@ -13,10 +13,15 @@ public class GameScreen implements Screen{
 
     private GameWorld world;
     private GameRenderer renderer;
+    private float runTime;
 
     public GameScreen(){
-        world = new GameWorld();
-        renderer = new GameRenderer(world);
+        int midPointY = (int) (Gdx.graphics.getHeight()/(Gdx.graphics.getWidth() / 136f))/2;
+        world = new GameWorld(midPointY);
+
+        runTime = 0f;
+        renderer = new GameRenderer(world, midPointY, Gdx.graphics.getHeight());
+        Gdx.input.setInputProcessor(new InputHandler(world.getCoffee()));
         Gdx.app.log("GameScreen", "attached");
 
     }
@@ -28,7 +33,8 @@ public class GameScreen implements Screen{
     @Override
     public void render(float delta) {
         world.update(delta);
-        renderer.render();
+        runTime+=delta;
+        renderer.render(runTime);
 
     }
 

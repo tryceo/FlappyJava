@@ -3,6 +3,7 @@ package com.tryceo.flappyjava;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.Game;
+import com.tryceo.helpers.AssetLoader;
 import com.tryceo.screens.GameScreen;
 
 public class FlappyJava extends Game {
@@ -11,7 +12,12 @@ public class FlappyJava extends Game {
 	@Override
 	public void create() {
 		Gdx.app.log("FlappyJava", "created");
+		AssetLoader.load();
 		setScreen(new GameScreen());
+	}
 
+	public void dispose(){
+		AssetLoader.dispose();
+		super.dispose();
 	}
 }

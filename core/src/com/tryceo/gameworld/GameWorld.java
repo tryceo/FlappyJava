@@ -1,8 +1,6 @@
 package com.tryceo.gameworld;
 
-import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Rectangle;
+import com.tryceo.gameobjects.Coffee;
 
 
 /**
@@ -10,27 +8,17 @@ import com.badlogic.gdx.math.Rectangle;
  */
 public class GameWorld {
 
-    private Rectangle rectangle;
+    private Coffee coffee;
 
-    public GameWorld (){
-        rectangle = new Rectangle(0,100,17,12);
+    public GameWorld(int midPointY){
+        coffee = new Coffee(33,midPointY-5,17,12);
     }
 
-    public void setRectangle(Rectangle rectangle) {
-        this.rectangle = rectangle;
+    public void update(float delta){
+        coffee.update(delta);
     }
 
-    public void update (float delta){
-        rectangle.x++;
-
-        if (rectangle.getX() > 137f){
-            rectangle.setX(0f);
-
-        }
-        Gdx.app.log("GameWorld", "update");
-    }
-
-    public Rectangle getRectangle(){
-        return rectangle;
+    public Coffee getCoffee(){
+        return coffee;
     }
 }
