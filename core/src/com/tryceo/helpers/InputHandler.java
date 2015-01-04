@@ -4,7 +4,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.tryceo.gameobjects.Coffee;
 
 /**
- * Created by Jack on 12/29/2014.
+ * Class for handling the clicking events
  */
 public class InputHandler implements InputProcessor {
 

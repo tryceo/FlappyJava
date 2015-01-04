@@ -6,6 +6,9 @@ import com.badlogic.gdx.Game;
 import com.tryceo.helpers.AssetLoader;
 import com.tryceo.screens.GameScreen;
 
+/**
+ *  Main class to start the game
+ */
 public class FlappyJava extends Game {
 	SpriteBatch batch;
 

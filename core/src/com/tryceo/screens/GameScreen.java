@@ -7,7 +7,7 @@ import com.tryceo.gameworld.GameWorld;
 import com.tryceo.helpers.InputHandler;
 
 /**
- * Created by Jack on 12/29/2014.
+ * Class for the main screen for the game
  */
 public class GameScreen implements Screen{
 
@@ -35,7 +35,6 @@ public class GameScreen implements Screen{
         world.update(delta);
         runTime+=delta;
         renderer.render(runTime);
-
     }
 
     @Override
