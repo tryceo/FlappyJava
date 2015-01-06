@@ -3,6 +3,7 @@ package com.tryceo.helpers;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.tryceo.gameobjects.Coffee;
 import com.tryceo.gameobjects.Grass;
@@ -22,6 +23,8 @@ public class AssetLoader {
     public static TextureRegion coffeeMid, coffeeDown, coffeeUp;
 
     public static TextureRegion pipeUp, pipeDown, bar;
+
+    public static BitmapFont font, fontShadow;
 
     public static void load() {
         texture = new Texture(Gdx.files.internal("texture.png"));
@@ -52,10 +55,16 @@ public class AssetLoader {
         bar = new TextureRegion(texture, 136, 16, Pipe.PIPE_WIDTH, 3);
         bar.flip(false, true);
 
+        font = new BitmapFont(Gdx.files.internal("text.fnt"));
+        font.setScale(.25f, -.25f);
+        fontShadow = new BitmapFont(Gdx.files.internal("shadow.fnt"));
+        fontShadow.setScale(.25f, -.25f);
 
     }
 
     public static void dispose() {
         texture.dispose();
+        font.dispose();
+        fontShadow.dispose();
     }
 }

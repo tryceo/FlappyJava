@@ -9,14 +9,14 @@ import com.tryceo.helpers.InputHandler;
 /**
  * Class for the main screen for the game
  */
-public class GameScreen implements Screen{
+public class GameScreen implements Screen {
 
     private GameWorld world;
     private GameRenderer renderer;
     private float runTime;
 
-    public GameScreen(){
-        int midPointY = (int) (Gdx.graphics.getHeight()/(Gdx.graphics.getWidth() / 136f))/2;
+    public GameScreen() {
+        int midPointY = (int) (Gdx.graphics.getHeight() / (Gdx.graphics.getWidth() / 136f)) / 2;
         world = new GameWorld(midPointY);
 
         runTime = 0f;
@@ -25,6 +25,7 @@ public class GameScreen implements Screen{
         Gdx.app.log("GameScreen", "attached");
 
     }
+
     @Override
     public void show() {
         Gdx.app.log("GameScreen", "show called");
@@ -33,13 +34,15 @@ public class GameScreen implements Screen{
     @Override
     public void render(float delta) {
         world.update(delta);
-        runTime+=delta;
+        runTime += delta;
         renderer.render(runTime);
+
+        Gdx.app.log("FPS", 1 / delta + "");
     }
 
     @Override
     public void resize(int width, int height) {
-        Gdx.app.log("GameScreen", "resize ("+width+", "+height+ ") called");
+        Gdx.app.log("GameScreen", "resize (" + width + ", " + height + ") called");
     }
 
     @Override

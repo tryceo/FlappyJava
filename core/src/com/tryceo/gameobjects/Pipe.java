@@ -8,22 +8,21 @@ import java.util.Random;
 /**
  * Class for the pipes in the game
  */
-public class Pipe extends Scrollable{
+public class Pipe extends Scrollable {
 
-    private Random random;
-    public static final int PIPE_VERTICAL_GAP = 45;
+    public static final int PIPE_VERTICAL_GAP = 40;
     public static final int PIPE_WIDTH = 22;
     public static final int PIPE_TOP_WIDTH = 24;
     public static final int PIPE_TOP_HEIGHT = 11;
-
-
+    private Random random;
     private Rectangle pipeUp, pipeDown, barUp, barDown;
+
+    private boolean scored;
 
     private float yCenter;
 
 
-
-    public Pipe (float x, float y, int width, int height, float scrollSpeed, float yCenter){
+    public Pipe(float x, float y, int width, int height, float scrollSpeed, float yCenter) {
         super(x, y, width, height, scrollSpeed);
 
         random = new Random();
@@ -33,10 +32,12 @@ public class Pipe extends Scrollable{
         barUp = new Rectangle();
         barDown = new Rectangle();
         this.yCenter = yCenter;
+
+        scored = false;
     }
 
     @Override
-    public void update(float delta){
+    public void update(float delta) {
 
         super.update(delta);
 
@@ -44,24 +45,29 @@ public class Pipe extends Scrollable{
 
         barDown.set(this.getX(), this.getY() + this.getHeight() + PIPE_VERTICAL_GAP, this.getWidth(), yCenter - (this.getHeight() + Pipe.PIPE_VERTICAL_GAP));
 
-        pipeUp.set(this.getX()-1, barUp.y + barUp.height - PIPE_TOP_HEIGHT, PIPE_TOP_WIDTH, PIPE_TOP_HEIGHT);
+        pipeUp.set(this.getX() - 1, barUp.y + barUp.height - PIPE_TOP_HEIGHT, PIPE_TOP_WIDTH, PIPE_TOP_HEIGHT);
 
-        pipeDown.set(this.getX()-1, barDown.y, PIPE_TOP_WIDTH, PIPE_TOP_HEIGHT);
+        pipeDown.set(this.getX() - 1, barDown.y, PIPE_TOP_WIDTH, PIPE_TOP_HEIGHT);
 
     }
 
     @Override
-    public void reset(float newX){
+    public void reset(float newX) {
         super.reset(newX);
         height = random.nextInt(90) + 15;
+        scored = false;
     }
 
-    public boolean collide(Coffee coffee){
-        if (this.getX() < coffee.getX() + coffee.getWidth()){
-            return (Intersector.overlaps(coffee.getCircle(), pipeDown) || Intersector.overlaps(coffee.getCircle(), pipeUp) ||
-                    Intersector.overlaps(coffee.getCircle(),barDown) || Intersector.overlaps(coffee.getCircle(),barUp));
-        }
-        return false;
+    public boolean collide(Coffee coffee) {
+        return this.getX() < coffee.getX() + coffee.getWidth() && (Intersector.overlaps(coffee.getCircle(), pipeDown) || Intersector.overlaps(coffee.getCircle(), pipeUp) || Intersector.overlaps(coffee.getCircle(), barDown) || Intersector.overlaps(coffee.getCircle(), barUp));
+    }
+
+    public void setScored(boolean scored) {
+        this.scored = scored;
+    }
+
+    public boolean hasScored() {
+        return scored;
     }
 
     public Rectangle getPipeUp() {
