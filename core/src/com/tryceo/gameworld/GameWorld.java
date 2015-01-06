@@ -13,14 +13,17 @@ import com.tryceo.gameobjects.ScrollableHandler;
 public class GameWorld {
 
     ScrollableHandler handler;
+    public static float groundPosY;
     private Coffee coffee;
     private Rectangle ground;
+
     private int score;
 
     public GameWorld(int midPointY) {
+        groundPosY = midPointY + 66;
         coffee = new Coffee(Coffee.COFFEE_POS_X, midPointY - 5, Coffee.COFFEE_WIDTH, Coffee.COFFEE_HEIGHT);
-        handler = new ScrollableHandler(this, midPointY + 66);
-        ground = new Rectangle(0, midPointY + 66, Grass.GRASS_WIDTH, Grass.GRASS_HEIGHT);
+        handler = new ScrollableHandler(this, groundPosY);
+        ground = new Rectangle(0, groundPosY, Grass.GRASS_WIDTH, Grass.GRASS_HEIGHT);
         score = 0;
     }
 

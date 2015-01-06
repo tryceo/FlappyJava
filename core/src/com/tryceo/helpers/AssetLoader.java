@@ -22,7 +22,7 @@ public class AssetLoader {
 
     public static TextureRegion coffeeMid, coffeeDown, coffeeUp;
 
-    public static TextureRegion pipeUp, pipeDown, bar;
+    public static TextureRegion pipeTopUp, pipeTopDown, pipe;
 
     public static BitmapFont font, fontShadow;
 
@@ -30,9 +30,6 @@ public class AssetLoader {
         texture = new Texture(Gdx.files.internal("texture.png"));
 
         texture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
-
-        background = new TextureRegion(texture, 0, 0, 136, 42);
-        background.flip(false, true);
 
         grass = new TextureRegion(texture, 0, 43, Grass.GRASS_WIDTH, Grass.GRASS_HEIGHT);
         grass.flip(false, true);
@@ -45,15 +42,16 @@ public class AssetLoader {
         coffeeUp.flip(true, true);
 
         TextureRegion[] coffees = {coffeeDown, coffeeMid, coffeeUp};
-        coffeeAnimation = new Animation(0.06f, coffees);
+        coffeeAnimation = new Animation(Coffee.COFFEE_ANIMATION_SPEED, coffees);
         coffeeAnimation.setPlayMode(Animation.PlayMode.LOOP_PINGPONG);
 
-        pipeUp = new TextureRegion(texture, 192, 0, Pipe.PIPE_TOP_WIDTH, 14);
-        pipeDown = new TextureRegion(pipeUp);
-        pipeDown.flip(false, true);
+        pipeTopUp = new TextureRegion(texture, 192, 0, Pipe.PIPE_TOP_WIDTH, Pipe.PIPE_TOP_HEIGHT);
+        pipeTopDown = new TextureRegion(pipeTopUp);
+        pipeTopDown.flip(false, true);
 
-        bar = new TextureRegion(texture, 136, 16, Pipe.PIPE_WIDTH, 3);
-        bar.flip(false, true);
+        pipe = new TextureRegion(texture, 136, 16, Pipe.PIPE_WIDTH, Pipe.PIPE_HEIGHT);
+
+        pipe.flip(false, true);
 
         font = new BitmapFont(Gdx.files.internal("text.fnt"));
         font.setScale(.25f, -.25f);

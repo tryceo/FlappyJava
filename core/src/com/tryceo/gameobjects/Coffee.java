@@ -11,6 +11,7 @@ public class Coffee {
     public static final int COFFEE_WIDTH = 17;
     public static final int COFFEE_HEIGHT = 12;
     public static final int COFFEE_POS_X = 33;
+    public static final float COFFEE_ANIMATION_SPEED = 0.06f;
     private Vector2 position;
     private Vector2 velocity;
     private Vector2 acceleration;

@@ -21,7 +21,7 @@ public class GameRenderer {
     public static TextureRegion background, grass;
     public static Animation coffeeAnimation;
     public static TextureRegion coffeeMid, coffeeDown, coffeeUp;
-    public static TextureRegion pipeUp, pipeDown, bar;
+    public static TextureRegion pipeTopUp, pipeTopDown, pipe;
     private GameWorld world;
     private OrthographicCamera camera;
     private ShapeRenderer shapeRenderer;
@@ -58,9 +58,9 @@ public class GameRenderer {
         coffeeDown = AssetLoader.coffeeDown;
         coffeeUp = AssetLoader.coffeeUp;
 
-        pipeUp = AssetLoader.pipeUp;
-        pipeDown = AssetLoader.pipeDown;
-        bar = AssetLoader.bar;
+        pipeTopUp = AssetLoader.pipeTopUp;
+        pipeTopDown = AssetLoader.pipeTopDown;
+        pipe = AssetLoader.pipe;
 
         batch = new SpriteBatch();
         batch.setProjectionMatrix(camera.combined);
@@ -76,38 +76,49 @@ public class GameRenderer {
 
     private void drawPipeTops() {
 
-        batch.draw(pipeUp, pipe1.getX() - 1,
-                pipe1.getY() + pipe1.getHeight() - 14, 24, 14);
-        batch.draw(pipeDown, pipe1.getX() - 1,
-                pipe1.getY() + pipe1.getHeight() + Pipe.PIPE_VERTICAL_GAP, 24, 14);
+        batch.draw(pipeTopUp, pipe1.getX() - 1,
+                pipe1.getY() + pipe1.getHeight() - Pipe.PIPE_TOP_HEIGHT, Pipe.PIPE_TOP_WIDTH, Pipe.PIPE_TOP_HEIGHT);
+        batch.draw(pipeTopDown, pipe1.getX() - 1,
+                pipe1.getY() + pipe1.getHeight() + Pipe.PIPE_VERTICAL_GAP, Pipe.PIPE_TOP_WIDTH, Pipe.PIPE_TOP_HEIGHT);
 
-        batch.draw(pipeUp, pipe2.getX() - 1,
-                pipe2.getY() + pipe2.getHeight() - 14, 24, 14);
-        batch.draw(pipeDown, pipe2.getX() - 1,
-                pipe2.getY() + pipe2.getHeight() + Pipe.PIPE_VERTICAL_GAP, 24, 14);
+        batch.draw(pipeTopUp, pipe2.getX() - 1,
+                pipe2.getY() + pipe2.getHeight() - Pipe.PIPE_TOP_HEIGHT, Pipe.PIPE_TOP_WIDTH, Pipe.PIPE_TOP_HEIGHT);
+        batch.draw(pipeTopDown, pipe2.getX() - 1,
+                pipe2.getY() + pipe2.getHeight() + Pipe.PIPE_VERTICAL_GAP, Pipe.PIPE_TOP_WIDTH, Pipe.PIPE_TOP_HEIGHT);
 
-        batch.draw(pipeUp, pipe3.getX() - 1,
-                pipe3.getY() + pipe3.getHeight() - 14, 24, 14);
-        batch.draw(pipeDown, pipe3.getX() - 1,
-                pipe3.getY() + pipe3.getHeight() + Pipe.PIPE_VERTICAL_GAP, 24, 14);
+        batch.draw(pipeTopUp, pipe3.getX() - 1,
+                pipe3.getY() + pipe3.getHeight() - Pipe.PIPE_TOP_HEIGHT, Pipe.PIPE_TOP_WIDTH, Pipe.PIPE_TOP_HEIGHT);
+        batch.draw(pipeTopDown, pipe3.getX() - 1,
+                pipe3.getY() + pipe3.getHeight() + Pipe.PIPE_VERTICAL_GAP, Pipe.PIPE_TOP_WIDTH, Pipe.PIPE_TOP_HEIGHT);
     }
 
     private void drawPipes() {
 
-        batch.draw(bar, pipe1.getX(), pipe1.getY(), pipe1.getWidth(),
-                pipe1.getHeight());
-        batch.draw(bar, pipe1.getX(), pipe1.getY() + pipe1.getHeight() + Pipe.PIPE_VERTICAL_GAP,
-                pipe1.getWidth(), midPointY + 66 - (pipe1.getHeight() + Pipe.PIPE_VERTICAL_GAP));
+        drawTiledPipe(pipe1);
+        drawTiledPipe(pipe2);
+        drawTiledPipe(pipe3);
+    }
 
-        batch.draw(bar, pipe2.getX(), pipe2.getY(), pipe2.getWidth(),
-                pipe2.getHeight());
-        batch.draw(bar, pipe2.getX(), pipe2.getY() + pipe2.getHeight() + Pipe.PIPE_VERTICAL_GAP,
-                pipe2.getWidth(), midPointY + 66 - (pipe2.getHeight() + Pipe.PIPE_VERTICAL_GAP));
+    private void drawTiledPipe(Pipe p) {
 
-        batch.draw(bar, pipe3.getX(), pipe3.getY(), pipe3.getWidth(),
-                pipe3.getHeight());
-        batch.draw(bar, pipe3.getX(), pipe3.getY() + pipe3.getHeight() + Pipe.PIPE_VERTICAL_GAP,
-                pipe3.getWidth(), midPointY + 66 - (pipe3.getHeight() + Pipe.PIPE_VERTICAL_GAP));
+        float i = p.getY();
+
+        //Draw top pipe
+        while (i < p.getHeight() - Pipe.PIPE_HEIGHT) {
+            batch.draw(pipe, p.getX(), i);
+            i += Pipe.PIPE_HEIGHT;
+        }
+        batch.draw(pipe, p.getX(), i, p.getWidth(), p.getHeight() - i);
+
+        i = p.getY() + p.getHeight() + Pipe.PIPE_VERTICAL_GAP;
+
+        //Draw bottom pipe
+        while (i < midPointY + 66 - Pipe.PIPE_HEIGHT) {
+            batch.draw(pipe, p.getX(), i);
+            i += Pipe.PIPE_HEIGHT;
+        }
+        batch.draw(pipe, p.getX(), i, p.getWidth(), midPointY + 66 - i);
+
     }
 
     public void render(float runTime) {
@@ -116,23 +127,18 @@ public class GameRenderer {
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
 
+        //Sky
         shapeRenderer.setColor(55 / 255.0f, 80 / 255.0f, 100 / 255.0f, 1);
-        shapeRenderer.rect(0, 0, 136, midPointY + 66);
+        shapeRenderer.rect(0, 0, 136, GameWorld.groundPosY);
 
-
-        shapeRenderer.setColor(111 / 255.0f, 186 / 255.0f, 45 / 255.0f, 1);
-        shapeRenderer.rect(0, midPointY + 66, 136, 11);
-
-
+        //Dirt
         shapeRenderer.setColor(147 / 255.0f, 80 / 255.0f, 27 / 255.0f, 1);
-        shapeRenderer.rect(0, midPointY + 77, 136, 52);
+        shapeRenderer.rect(0, GameWorld.groundPosY + Grass.GRASS_HEIGHT, 136, 52);
 
         shapeRenderer.end();
 
         batch.begin();
         batch.disableBlending();
-        batch.draw(background, 0, midPointY + 23, 136, 43);
-
 
         drawPipes();
         drawGrass();
@@ -148,9 +154,7 @@ public class GameRenderer {
             batch.draw(coffeeAnimation.getKeyFrame(runTime), coffee.getX(), coffee.getY(), coffee.getWidth() / 2.0f, coffee.getHeight() / 2.0f, coffee.getWidth(), coffee.getHeight(), 1, 1, coffee.getRotation());
         }
 
-
         String score = world.getScore() + "";
-
 
         AssetLoader.fontShadow.draw(batch, "" + world.getScore(), (136 / 2) - (3 * score.length()), 12);
 

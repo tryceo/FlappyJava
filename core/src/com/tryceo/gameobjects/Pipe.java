@@ -10,12 +10,14 @@ import java.util.Random;
  */
 public class Pipe extends Scrollable {
 
-    public static final int PIPE_VERTICAL_GAP = 40;
+    public static final int PIPE_VERTICAL_GAP = 50;
     public static final int PIPE_WIDTH = 22;
+    public static final int PIPE_HEIGHT = 22; //repeating texture height
     public static final int PIPE_TOP_WIDTH = 24;
-    public static final int PIPE_TOP_HEIGHT = 11;
+    public static final int PIPE_TOP_HEIGHT = 14;
+
     private Random random;
-    private Rectangle pipeUp, pipeDown, barUp, barDown;
+    private Rectangle pipeTopUp, pipeTopDown, pipeUp, pipeDown;
 
     private boolean scored;
 
@@ -27,10 +29,10 @@ public class Pipe extends Scrollable {
 
         random = new Random();
 
+        pipeTopUp = new Rectangle();
+        pipeTopDown = new Rectangle();
         pipeUp = new Rectangle();
         pipeDown = new Rectangle();
-        barUp = new Rectangle();
-        barDown = new Rectangle();
         this.yCenter = yCenter;
 
         scored = false;
@@ -41,13 +43,13 @@ public class Pipe extends Scrollable {
 
         super.update(delta);
 
-        barUp.set(this.getX(), this.getY(), this.getWidth(), this.getHeight());
+        pipeUp.set(this.getX(), this.getY(), this.getWidth(), this.getHeight());
 
-        barDown.set(this.getX(), this.getY() + this.getHeight() + PIPE_VERTICAL_GAP, this.getWidth(), yCenter - (this.getHeight() + Pipe.PIPE_VERTICAL_GAP));
+        pipeDown.set(this.getX(), this.getY() + this.getHeight() + PIPE_VERTICAL_GAP, this.getWidth(), yCenter - (this.getHeight() + Pipe.PIPE_VERTICAL_GAP));
 
-        pipeUp.set(this.getX() - 1, barUp.y + barUp.height - PIPE_TOP_HEIGHT, PIPE_TOP_WIDTH, PIPE_TOP_HEIGHT);
+        pipeTopUp.set(this.getX() - 1, pipeUp.y + pipeUp.height - PIPE_TOP_HEIGHT, PIPE_TOP_WIDTH, PIPE_TOP_HEIGHT);
 
-        pipeDown.set(this.getX() - 1, barDown.y, PIPE_TOP_WIDTH, PIPE_TOP_HEIGHT);
+        pipeTopDown.set(this.getX() - 1, pipeDown.y, PIPE_TOP_WIDTH, PIPE_TOP_HEIGHT);
 
     }
 
@@ -59,7 +61,7 @@ public class Pipe extends Scrollable {
     }
 
     public boolean collide(Coffee coffee) {
-        return this.getX() < coffee.getX() + coffee.getWidth() && (Intersector.overlaps(coffee.getCircle(), pipeDown) || Intersector.overlaps(coffee.getCircle(), pipeUp) || Intersector.overlaps(coffee.getCircle(), barDown) || Intersector.overlaps(coffee.getCircle(), barUp));
+        return this.getX() < coffee.getX() + coffee.getWidth() && (Intersector.overlaps(coffee.getCircle(), pipeTopDown) || Intersector.overlaps(coffee.getCircle(), pipeTopUp) || Intersector.overlaps(coffee.getCircle(), pipeDown) || Intersector.overlaps(coffee.getCircle(), pipeUp));
     }
 
     public void setScored(boolean scored) {
@@ -70,19 +72,19 @@ public class Pipe extends Scrollable {
         return scored;
     }
 
+    public Rectangle getPipeTopUp() {
+        return pipeTopUp;
+    }
+
+    public Rectangle getPipeTopDown() {
+        return pipeTopDown;
+    }
+
     public Rectangle getPipeUp() {
         return pipeUp;
     }
 
     public Rectangle getPipeDown() {
         return pipeDown;
-    }
-
-    public Rectangle getBarUp() {
-        return barUp;
-    }
-
-    public Rectangle getBarDown() {
-        return barDown;
     }
 }
