@@ -2,6 +2,7 @@ package com.tryceo.helpers;
 
 import com.badlogic.gdx.InputProcessor;
 import com.tryceo.gameobjects.Coffee;
+import com.tryceo.gameworld.GameWorld;
 
 /**
  * Class for handling the clicking events
@@ -10,9 +11,11 @@ public class InputHandler implements InputProcessor {
 
 
     private Coffee coffee;
+    private GameWorld world;
 
-    public InputHandler(Coffee coffee) {
-        this.coffee = coffee;
+    public InputHandler(GameWorld world) {
+        this.world = world;
+        coffee = world.getCoffee();
     }
 
     @Override
@@ -33,7 +36,15 @@ public class InputHandler implements InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+
+        if (world.isReady()){
+            world.start();
+        }
         coffee.onClick();
+
+        if (world.isGameOver()){
+            world.restart();
+        }
         return true;
     }
 

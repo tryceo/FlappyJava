@@ -32,11 +32,22 @@ public class Coffee {
         this.width = width;
         this.height = height;
 
+        rotation = 0;
+
         circle = new Circle();
 
         alive = true;
     }
 
+    public void restart(int y){
+        rotation = 0;
+        position.y = y;
+        velocity.x = 0;
+        velocity.y = 0;
+        acceleration.x = 0;
+        acceleration.y = 460;
+        alive = true;
+    }
 
     public void update(float delta) {
         velocity.add(acceleration.scl(delta));//scale velocity to frame rate
@@ -110,13 +121,6 @@ public class Coffee {
         return rotation;
     }
 
-    public Vector2 getVelocity() {
-        return velocity;
-    }
-
-    public Vector2 getAcceleration() {
-        return acceleration;
-    }
 
     public int getWidth() {
         return width;
@@ -134,8 +138,6 @@ public class Coffee {
         return position.y;
     }
 
-    public Vector2 getPosition() {
-        return position;
 
-    }
+
 }

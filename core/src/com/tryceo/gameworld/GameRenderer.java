@@ -113,11 +113,11 @@ public class GameRenderer {
         i = p.getY() + p.getHeight() + Pipe.PIPE_VERTICAL_GAP;
 
         //Draw bottom pipe
-        while (i < midPointY + 66 - Pipe.PIPE_HEIGHT) {
+        while (i < GameWorld.groundPosY - Pipe.PIPE_HEIGHT) {
             batch.draw(pipe, p.getX(), i);
             i += Pipe.PIPE_HEIGHT;
         }
-        batch.draw(pipe, p.getX(), i, p.getWidth(), midPointY + 66 - i);
+        batch.draw(pipe, p.getX(), i, p.getWidth(), GameWorld.groundPosY - i);
 
     }
 
@@ -154,12 +154,45 @@ public class GameRenderer {
             batch.draw(coffeeAnimation.getKeyFrame(runTime), coffee.getX(), coffee.getY(), coffee.getWidth() / 2.0f, coffee.getHeight() / 2.0f, coffee.getWidth(), coffee.getHeight(), 1, 1, coffee.getRotation());
         }
 
-        String score = world.getScore() + "";
 
-        AssetLoader.fontShadow.draw(batch, "" + world.getScore(), (136 / 2) - (3 * score.length()), 12);
+        if (world.isReady()) {
 
-        AssetLoader.font.draw(batch, "" + world.getScore(), (136 / 2) - (3 * score.length() - 1), 11);
+            batch.draw(AssetLoader.gameName, camera.position.x - (AssetLoader.gameName.getRegionWidth() / 2), camera.position.y - (AssetLoader.gameName.getRegionHeight() / 2) - 20);
+            //Draw shadow first
+//            AssetLoader.fontShadow.draw(batch, "Touch me", (136 / 2)
+//                    - (42), 76);
+//            // Draw text
+//            AssetLoader.font.draw(batch, "Touch me", (136 / 2)
+//                    - (42 - 1), 75);
+        } else if (world.isGameOver()) {
+            AssetLoader.fontShadow.draw(batch, "Game Over", 25, 56);
+            AssetLoader.font.draw(batch, "Game Over", 24, 55);
+
+            AssetLoader.fontShadow.draw(batch, "Try again?", 23, 76);
+            AssetLoader.font.draw(batch, "Try again?", 24, 75);
+
+            String score = world.getScore() + "";
+
+            AssetLoader.fontShadow.draw(batch, "" + world.getScore(), (136 / 2) - (3 * score.length()), 12);
+
+            AssetLoader.font.draw(batch, "" + world.getScore(), (136 / 2) - (3 * score.length() - 1), 11);
+
+        } else if (world.isRunning()) {
+            String score = world.getScore() + "";
+
+            AssetLoader.fontShadow.draw(batch, "" + world.getScore(), (136 / 2) - (3 * score.length()), 12);
+
+            AssetLoader.font.draw(batch, "" + world.getScore(), (136 / 2) - (3 * score.length() - 1), 11);
+
+        }
         batch.end();
+
+//        String score = world.getScore() + "";
+//
+//        AssetLoader.fontShadow.draw(batch, "" + world.getScore(), (136 / 2) - (3 * score.length()), 12);
+//
+//        AssetLoader.font.draw(batch, "" + world.getScore(), (136 / 2) - (3 * score.length() - 1), 11);
+//        batch.end();
 
 
     }

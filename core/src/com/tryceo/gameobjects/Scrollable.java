@@ -62,4 +62,9 @@ public class Scrollable {
     public float getHeight() {
         return height;
     }
+
+    public void restart(float x, float scrollSpeed){
+        position.x = x;
+        velocity.x = scrollSpeed;
+    }
 }

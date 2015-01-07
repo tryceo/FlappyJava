@@ -24,6 +24,8 @@ public class AssetLoader {
 
     public static TextureRegion pipeTopUp, pipeTopDown, pipe;
 
+    public static TextureRegion gameName, gamePlayButton;
+
     public static BitmapFont font, fontShadow;
 
     public static void load() {
@@ -50,8 +52,12 @@ public class AssetLoader {
         pipeTopDown.flip(false, true);
 
         pipe = new TextureRegion(texture, 136, 16, Pipe.PIPE_WIDTH, Pipe.PIPE_HEIGHT);
-
         pipe.flip(false, true);
+
+        gameName = new TextureRegion(texture, 0, 55, 117, 34);
+        gameName.flip(false, true);
+
+
 
         font = new BitmapFont(Gdx.files.internal("text.fnt"));
         font.setScale(.25f, -.25f);

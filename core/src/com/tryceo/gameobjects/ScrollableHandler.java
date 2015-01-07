@@ -72,6 +72,14 @@ public class ScrollableHandler {
         return (pipe1.collide(coffee) || pipe2.collide(coffee) || pipe3.collide(coffee));
     }
 
+    public void restart(){
+        grass1.restart(0, SCROLL_SPEED);
+        grass2.restart(grass1.getTailX(), SCROLL_SPEED);
+        pipe1.restart(210, SCROLL_SPEED);
+        pipe2.restart(pipe1.getTailX() + PIPE_HORIZONTAL_GAP, SCROLL_SPEED);
+        pipe3.restart(pipe2.getTailX() + PIPE_HORIZONTAL_GAP, SCROLL_SPEED);
+    }
+
     public Grass getGrass1() {
         return grass1;
     }

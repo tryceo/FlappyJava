@@ -12,7 +12,7 @@ public class Pipe extends Scrollable {
 
     public static final int PIPE_VERTICAL_GAP = 50;
     public static final int PIPE_WIDTH = 22;
-    public static final int PIPE_HEIGHT = 22; //repeating texture height
+    public static final int PIPE_HEIGHT = 10; //repeating texture height
     public static final int PIPE_TOP_WIDTH = 24;
     public static final int PIPE_TOP_HEIGHT = 14;
 
@@ -72,19 +72,9 @@ public class Pipe extends Scrollable {
         return scored;
     }
 
-    public Rectangle getPipeTopUp() {
-        return pipeTopUp;
-    }
-
-    public Rectangle getPipeTopDown() {
-        return pipeTopDown;
-    }
-
-    public Rectangle getPipeUp() {
-        return pipeUp;
-    }
-
-    public Rectangle getPipeDown() {
-        return pipeDown;
+    @Override
+    public void restart(float x, float scrollSpeed){
+        velocity.x = scrollSpeed;
+        reset(x);
     }
 }
