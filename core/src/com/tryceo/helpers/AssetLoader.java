@@ -33,8 +33,11 @@ public class AssetLoader {
 
         texture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
 
-        grass = new TextureRegion(texture, 0, 43, Grass.GRASS_WIDTH, Grass.GRASS_HEIGHT);
+        grass = new TextureRegion(texture, 91, 43, Grass.GRASS_WIDTH, Grass.GRASS_HEIGHT);
         grass.flip(false, true);
+
+        background = new TextureRegion(texture, 120, 54, 136, 74);
+        background.flip(false, true);
 
         coffeeDown = new TextureRegion(texture, 136, 0, Coffee.COFFEE_WIDTH, Coffee.COFFEE_HEIGHT);
         coffeeDown.flip(true, true);

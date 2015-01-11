@@ -12,6 +12,7 @@ import com.tryceo.gameobjects.Grass;
 import com.tryceo.gameobjects.Pipe;
 import com.tryceo.gameobjects.ScrollableHandler;
 import com.tryceo.helpers.AssetLoader;
+import com.tryceo.screens.GameScreen;
 
 /**
  * Class for rendering the game
@@ -38,7 +39,7 @@ public class GameRenderer {
         this.midPointY = midPointY;
         this.gameHeight = gameHeight;
         camera = new OrthographicCamera();
-        camera.setToOrtho(true, 137, 204);
+        camera.setToOrtho(true, GameScreen.GAME_WIDTH, 204);
 
         //Get all the objects
         coffee = world.getCoffee();
@@ -121,6 +122,15 @@ public class GameRenderer {
 
     }
 
+    private void drawScore() {
+
+        String score = world.getScore() + "";
+
+        AssetLoader.fontShadow.draw(batch, "" + world.getScore(), (GameScreen.GAME_WIDTH / 2) - (3 * score.length()), 12);
+
+        AssetLoader.font.draw(batch, "" + world.getScore(), (GameScreen.GAME_WIDTH / 2) - (3 * score.length() - 1), 11);
+    }
+
     public void render(float runTime) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -128,17 +138,19 @@ public class GameRenderer {
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
 
         //Sky
-        shapeRenderer.setColor(55 / 255.0f, 80 / 255.0f, 100 / 255.0f, 1);
-        shapeRenderer.rect(0, 0, 136, GameWorld.groundPosY);
+        shapeRenderer.setColor(216 / 255.0f, 244 / 255.0f, 253 / 255.0f, 1);
+        shapeRenderer.rect(0, 0, GameScreen.GAME_WIDTH, GameWorld.groundPosY);
 
         //Dirt
-        shapeRenderer.setColor(147 / 255.0f, 80 / 255.0f, 27 / 255.0f, 1);
-        shapeRenderer.rect(0, GameWorld.groundPosY + Grass.GRASS_HEIGHT, 136, 52);
+        shapeRenderer.setColor(131 / 255.0f, 97 / 255.0f, 87 / 255.0f, 1);
+        shapeRenderer.rect(0, GameWorld.groundPosY + Grass.GRASS_HEIGHT, GameScreen.GAME_WIDTH, 52);
 
         shapeRenderer.end();
 
         batch.begin();
         batch.disableBlending();
+
+        batch.draw(background, 0, grass1.getY()-74);
 
         drawPipes();
         drawGrass();
@@ -158,42 +170,21 @@ public class GameRenderer {
         if (world.isReady()) {
 
             batch.draw(AssetLoader.gameName, camera.position.x - (AssetLoader.gameName.getRegionWidth() / 2), camera.position.y - (AssetLoader.gameName.getRegionHeight() / 2) - 20);
-            //Draw shadow first
-//            AssetLoader.fontShadow.draw(batch, "Touch me", (136 / 2)
-//                    - (42), 76);
-//            // Draw text
-//            AssetLoader.font.draw(batch, "Touch me", (136 / 2)
-//                    - (42 - 1), 75);
+
+
         } else if (world.isGameOver()) {
             AssetLoader.fontShadow.draw(batch, "Game Over", 25, 56);
             AssetLoader.font.draw(batch, "Game Over", 24, 55);
 
             AssetLoader.fontShadow.draw(batch, "Try again?", 23, 76);
             AssetLoader.font.draw(batch, "Try again?", 24, 75);
+            drawScore();
 
-            String score = world.getScore() + "";
-
-            AssetLoader.fontShadow.draw(batch, "" + world.getScore(), (136 / 2) - (3 * score.length()), 12);
-
-            AssetLoader.font.draw(batch, "" + world.getScore(), (136 / 2) - (3 * score.length() - 1), 11);
 
         } else if (world.isRunning()) {
-            String score = world.getScore() + "";
-
-            AssetLoader.fontShadow.draw(batch, "" + world.getScore(), (136 / 2) - (3 * score.length()), 12);
-
-            AssetLoader.font.draw(batch, "" + world.getScore(), (136 / 2) - (3 * score.length() - 1), 11);
+            drawScore();
 
         }
         batch.end();
-
-//        String score = world.getScore() + "";
-//
-//        AssetLoader.fontShadow.draw(batch, "" + world.getScore(), (136 / 2) - (3 * score.length()), 12);
-//
-//        AssetLoader.font.draw(batch, "" + world.getScore(), (136 / 2) - (3 * score.length() - 1), 11);
-//        batch.end();
-
-
     }
 }

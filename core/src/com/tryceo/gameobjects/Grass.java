@@ -5,7 +5,7 @@ package com.tryceo.gameobjects;
  */
 public class Grass extends Scrollable {
 
-    public static final int GRASS_WIDTH = 143;
+    public static final int GRASS_WIDTH = 165;
     public static final int GRASS_HEIGHT = 11;
 
 
