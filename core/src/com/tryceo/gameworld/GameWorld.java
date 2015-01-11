@@ -18,6 +18,7 @@ public class GameWorld {
     private Coffee coffee;
     private Rectangle ground;
 
+    private boolean touchedDown;
     private int score;
 
     private GameState currentState;
@@ -25,6 +26,7 @@ public class GameWorld {
     public enum GameState{
         READY, RUNNING, GAMEOVER
     }
+
 
     public GameWorld(int midPointY) {
         currentState = GameState.READY;
@@ -34,6 +36,7 @@ public class GameWorld {
         handler = new ScrollableHandler(this, groundPosY);
         ground = new Rectangle(0, groundPosY, Grass.GRASS_WIDTH, Grass.GRASS_HEIGHT);
         score = 0;
+        touchedDown = false;
     }
 
     public void updateRunning(float delta) {
@@ -63,7 +66,6 @@ public class GameWorld {
 
         switch (currentState) {
             case READY:
-                updateReady(delta);
                 break;
 
             case RUNNING:
@@ -74,8 +76,8 @@ public class GameWorld {
 
     }
 
-    private void updateReady(float delta) {
-        // Do nothing for now
+    public int getMidPointY(){
+        return midPointY;
     }
 
 
@@ -100,6 +102,14 @@ public class GameWorld {
         coffee.restart(midPointY);
         handler.restart();
         currentState = GameState.READY;
+    }
+
+    public void setTouchedDown(boolean touchedDown){
+        this.touchedDown = touchedDown;
+    }
+
+    public boolean getTouchedDown(){
+        return touchedDown;
     }
     public int getScore() {
         return score;

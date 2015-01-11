@@ -15,6 +15,7 @@ public class GameScreen implements Screen {
     private GameRenderer renderer;
     private float runTime;
     public static final int GAME_WIDTH = 136;
+    public static final int GAME_HEIGHT = 204;
 
     public GameScreen() {
         int midPointY = (Gdx.graphics.getHeight() / (Gdx.graphics.getWidth() / GAME_WIDTH)) / 2;
@@ -38,7 +39,7 @@ public class GameScreen implements Screen {
         runTime += delta;
         renderer.render(runTime);
 
-        Gdx.app.log("FPS", 1 / delta + "");
+//        Gdx.app.log("FPS", 1 / delta + "");
     }
 
     @Override

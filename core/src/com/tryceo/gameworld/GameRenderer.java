@@ -39,7 +39,7 @@ public class GameRenderer {
         this.midPointY = midPointY;
         this.gameHeight = gameHeight;
         camera = new OrthographicCamera();
-        camera.setToOrtho(true, GameScreen.GAME_WIDTH, 204);
+        camera.setToOrtho(true, GameScreen.GAME_WIDTH, GameScreen.GAME_HEIGHT);
 
         //Get all the objects
         coffee = world.getCoffee();
@@ -169,8 +169,14 @@ public class GameRenderer {
 
         if (world.isReady()) {
 
-            batch.draw(AssetLoader.gameName, camera.position.x - (AssetLoader.gameName.getRegionWidth() / 2), camera.position.y - (AssetLoader.gameName.getRegionHeight() / 2) - 20);
 
+            batch.draw(AssetLoader.gameName, camera.position.x - (AssetLoader.gameName.getRegionWidth() / 2), midPointY - 40);
+            if (world.getTouchedDown()){
+                batch.draw(AssetLoader.gamePlayButtonTouched, camera.position.x - (AssetLoader.gamePlayButtonTouched.getRegionWidth() / 2), midPointY + 20);
+            }else {
+                batch.draw(AssetLoader.gamePlayButtonNormal, camera.position.x - (AssetLoader.gamePlayButtonNormal.getRegionWidth() / 2), midPointY + 20);
+
+            }
 
         } else if (world.isGameOver()) {
             AssetLoader.fontShadow.draw(batch, "Game Over", 25, 56);

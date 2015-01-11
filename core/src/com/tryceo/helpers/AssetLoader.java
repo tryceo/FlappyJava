@@ -24,7 +24,7 @@ public class AssetLoader {
 
     public static TextureRegion pipeTopUp, pipeTopDown, pipe;
 
-    public static TextureRegion gameName, gamePlayButton;
+    public static TextureRegion gameName, gamePlayButtonNormal, gamePlayButtonTouched;
 
     public static BitmapFont font, fontShadow;
 
@@ -60,6 +60,10 @@ public class AssetLoader {
         gameName = new TextureRegion(texture, 0, 55, 117, 34);
         gameName.flip(false, true);
 
+        gamePlayButtonNormal = new TextureRegion(texture, 0, 90, 29, 16 );
+        gamePlayButtonNormal.flip(false, true);
+        gamePlayButtonTouched = new TextureRegion(texture, 29, 90, 29, 16);
+        gamePlayButtonTouched.flip(false,true);
 
 
         font = new BitmapFont(Gdx.files.internal("text.fnt"));
