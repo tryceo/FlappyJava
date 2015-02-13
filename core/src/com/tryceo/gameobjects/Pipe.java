@@ -19,10 +19,15 @@ public class Pipe extends Scrollable {
     private Random random;
     private Rectangle pipeTopUp, pipeTopDown, pipeUp, pipeDown;
 
+    private int pipeVerticalGap;
+
     private boolean scored;
 
     private float yCenter;
 
+    public int getPipeVerticalGap() {
+        return pipeVerticalGap;
+    }
 
     public Pipe(float x, float y, int width, int height, float scrollSpeed, float yCenter) {
         super(x, y, width, height, scrollSpeed);
@@ -35,6 +40,8 @@ public class Pipe extends Scrollable {
         pipeDown = new Rectangle();
         this.yCenter = yCenter;
 
+        pipeVerticalGap = random.nextInt(20) + 40;
+
         scored = false;
     }
 
@@ -45,18 +52,18 @@ public class Pipe extends Scrollable {
 
         pipeUp.set(this.getX(), this.getY(), this.getWidth(), this.getHeight());
 
-        pipeDown.set(this.getX(), this.getY() + this.getHeight() + PIPE_VERTICAL_GAP, this.getWidth(), yCenter - (this.getHeight() + Pipe.PIPE_VERTICAL_GAP));
+        pipeDown.set(this.getX(), this.getY() + this.getHeight() + pipeVerticalGap, this.getWidth(), yCenter - (this.getHeight() + pipeVerticalGap));
 
         pipeTopUp.set(this.getX() - 1, pipeUp.y + pipeUp.height - PIPE_TOP_HEIGHT, PIPE_TOP_WIDTH, PIPE_TOP_HEIGHT);
 
         pipeTopDown.set(this.getX() - 1, pipeDown.y, PIPE_TOP_WIDTH, PIPE_TOP_HEIGHT);
-
     }
 
     @Override
     public void reset(float newX) {
         super.reset(newX);
         height = random.nextInt(90) + 15;
+        pipeVerticalGap = random.nextInt(20)+40;
         scored = false;
     }
 

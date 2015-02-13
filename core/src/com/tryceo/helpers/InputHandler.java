@@ -22,12 +22,28 @@ public class InputHandler implements InputProcessor {
 
     @Override
     public boolean keyDown(int keycode) {
-        return false;
+
+        Gdx.app.log("keyboard pos", ""+keycode);
+        if (keycode == 62){
+            if (world.isReady()) {
+                world.setTouchedDown(true);
+            }
+            else if (world.isRunning())
+                coffee.onClick();
+        }
+        return true;
     }
 
     @Override
     public boolean keyUp(int keycode) {
-        return false;
+        if (world.isReady() && keycode == 62) {
+            world.start();
+            world.setTouchedDown(false);
+        } else if (world.isGameOver() && keycode == 62){
+            world.restart();
+        }
+
+        return true;
     }
 
     @Override
@@ -45,6 +61,7 @@ public class InputHandler implements InputProcessor {
         if (world.isRunning()) {
             coffee.onClick();
         }
+
         return true;
     }
 

@@ -50,7 +50,7 @@ public class ScrollableHandler {
         } else if (pipe2.isScrollLeft()) {
             pipe2.reset(pipe1.getTailX() + PIPE_HORIZONTAL_GAP);//reset pipe2 to right of pipe1
         } else if (pipe3.isScrollLeft()) {
-            pipe3.reset(pipe2.getTailX() + PIPE_HORIZONTAL_GAP);//rest pipe3 to right of pipe2
+            pipe3.reset(pipe2.getTailX() + PIPE_HORIZONTAL_GAP);//reset pipe3 to right of pipe2
         }
 
         if (grass1.isScrollLeft()) {

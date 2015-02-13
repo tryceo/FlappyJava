@@ -80,17 +80,17 @@ public class GameRenderer {
         batch.draw(pipeTopUp, pipe1.getX() - 1,
                 pipe1.getY() + pipe1.getHeight() - Pipe.PIPE_TOP_HEIGHT, Pipe.PIPE_TOP_WIDTH, Pipe.PIPE_TOP_HEIGHT);
         batch.draw(pipeTopDown, pipe1.getX() - 1,
-                pipe1.getY() + pipe1.getHeight() + Pipe.PIPE_VERTICAL_GAP, Pipe.PIPE_TOP_WIDTH, Pipe.PIPE_TOP_HEIGHT);
+                pipe1.getY() + pipe1.getHeight() + pipe1.getPipeVerticalGap(), Pipe.PIPE_TOP_WIDTH, Pipe.PIPE_TOP_HEIGHT);
 
         batch.draw(pipeTopUp, pipe2.getX() - 1,
                 pipe2.getY() + pipe2.getHeight() - Pipe.PIPE_TOP_HEIGHT, Pipe.PIPE_TOP_WIDTH, Pipe.PIPE_TOP_HEIGHT);
         batch.draw(pipeTopDown, pipe2.getX() - 1,
-                pipe2.getY() + pipe2.getHeight() + Pipe.PIPE_VERTICAL_GAP, Pipe.PIPE_TOP_WIDTH, Pipe.PIPE_TOP_HEIGHT);
+                pipe2.getY() + pipe2.getHeight() + pipe2.getPipeVerticalGap(), Pipe.PIPE_TOP_WIDTH, Pipe.PIPE_TOP_HEIGHT);
 
         batch.draw(pipeTopUp, pipe3.getX() - 1,
                 pipe3.getY() + pipe3.getHeight() - Pipe.PIPE_TOP_HEIGHT, Pipe.PIPE_TOP_WIDTH, Pipe.PIPE_TOP_HEIGHT);
         batch.draw(pipeTopDown, pipe3.getX() - 1,
-                pipe3.getY() + pipe3.getHeight() + Pipe.PIPE_VERTICAL_GAP, Pipe.PIPE_TOP_WIDTH, Pipe.PIPE_TOP_HEIGHT);
+                pipe3.getY() + pipe3.getHeight() + pipe3.getPipeVerticalGap(), Pipe.PIPE_TOP_WIDTH, Pipe.PIPE_TOP_HEIGHT);
     }
 
     private void drawPipes() {
@@ -111,7 +111,7 @@ public class GameRenderer {
         }
         batch.draw(pipe, p.getX(), i, p.getWidth(), p.getHeight() - i);
 
-        i = p.getY() + p.getHeight() + Pipe.PIPE_VERTICAL_GAP;
+        i = p.getY() + p.getHeight() + p.getPipeVerticalGap();
 
         //Draw bottom pipe
         while (i < GameWorld.groundPosY - Pipe.PIPE_HEIGHT) {
@@ -125,9 +125,7 @@ public class GameRenderer {
     private void drawScore() {
 
         String score = world.getScore() + "";
-
         AssetLoader.fontShadow.draw(batch, "" + world.getScore(), (GameScreen.GAME_WIDTH / 2) - (3 * score.length()), 12);
-
         AssetLoader.font.draw(batch, "" + world.getScore(), (GameScreen.GAME_WIDTH / 2) - (3 * score.length() - 1), 11);
     }
 
