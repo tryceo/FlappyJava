@@ -10,7 +10,6 @@ import java.util.Random;
  */
 public class Pipe extends Scrollable {
 
-    public static final int PIPE_VERTICAL_GAP = 50;
     public static final int PIPE_WIDTH = 22;
     public static final int PIPE_HEIGHT = 10; //repeating texture height
     public static final int PIPE_TOP_WIDTH = 24;

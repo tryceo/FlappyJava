@@ -2,6 +2,7 @@ package com.tryceo.helpers;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.math.Rectangle;
 import com.tryceo.gameobjects.Coffee;
 import com.tryceo.gameworld.GameWorld;
 import com.tryceo.screens.GameScreen;
@@ -66,14 +67,18 @@ public class InputHandler implements InputProcessor {
     }
 
     private boolean playButtonTouch(int screenX, int screenY){
-        double ratioX = Gdx.graphics.getWidth()/ GameScreen.GAME_WIDTH;
-        double newX = screenX/ratioX;
-        double newY = screenY/ratioX;
+        float ratioX = (float)Gdx.graphics.getWidth()/ GameScreen.GAME_WIDTH;
+        float ratioY = (float)Gdx.graphics.getHeight()/ GameScreen.GAME_HEIGHT;
 
-       return ((newX > 68 - (AssetLoader.gamePlayButtonNormal.getRegionWidth()/2))
-       && (newX < 68 + (AssetLoader.gamePlayButtonNormal.getRegionWidth()/2))
-       && (newY > world.getMidPointY() + 20)
-       && (newY < world.getMidPointY() + 20 + AssetLoader.gamePlayButtonNormal.getRegionHeight()));
+        float scaledCenterX = ratioX * GameScreen.GAME_WIDTH/2;
+        float scaledCenterY = ratioY * (world.getMidPointY() + 20);
+
+        float scaledRegionHalfWidth = ratioX * (AssetLoader.gamePlayButtonNormal.getRegionWidth()/2f);
+        float scaledRegionHalfHeight = ratioY * (AssetLoader.gamePlayButtonNormal.getRegionHeight()/2f);
+
+        Rectangle playButtonBounds = new Rectangle(scaledCenterX - scaledRegionHalfWidth, scaledCenterY , scaledRegionHalfWidth*2, scaledRegionHalfHeight*2);
+
+        return playButtonBounds.contains(screenX, screenY);
     }
 
     @Override

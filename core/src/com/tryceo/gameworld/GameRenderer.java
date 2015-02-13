@@ -32,12 +32,10 @@ public class GameRenderer {
     private Grass grass1, grass2;
     private Pipe pipe1, pipe2, pipe3;
     private int midPointY;
-    private int gameHeight;
 
-    public GameRenderer(GameWorld world, int midPointY, int gameHeight) {
+    public GameRenderer(GameWorld world, int midPointY) {
         this.world = world;
         this.midPointY = midPointY;
-        this.gameHeight = gameHeight;
         camera = new OrthographicCamera();
         camera.setToOrtho(true, GameScreen.GAME_WIDTH, GameScreen.GAME_HEIGHT);
 
@@ -148,7 +146,7 @@ public class GameRenderer {
         batch.begin();
         batch.disableBlending();
 
-        batch.draw(background, 0, grass1.getY()-74);
+        batch.draw(background, 0, grass1.getY() - 74);
 
         drawPipes();
         drawGrass();
@@ -167,12 +165,11 @@ public class GameRenderer {
 
         if (world.isReady()) {
 
-
-            batch.draw(AssetLoader.gameName, camera.position.x - (AssetLoader.gameName.getRegionWidth() / 2), midPointY - 40);
-            if (world.getTouchedDown()){
-                batch.draw(AssetLoader.gamePlayButtonTouched, camera.position.x - (AssetLoader.gamePlayButtonTouched.getRegionWidth() / 2), midPointY + 20);
-            }else {
-                batch.draw(AssetLoader.gamePlayButtonNormal, camera.position.x - (AssetLoader.gamePlayButtonNormal.getRegionWidth() / 2), midPointY + 20);
+            batch.draw(AssetLoader.gameName, (GameScreen.GAME_WIDTH / 2) - (AssetLoader.gameName.getRegionWidth() / 2), midPointY - 40);
+            if (world.getTouchedDown()) {
+                batch.draw(AssetLoader.gamePlayButtonTouched, (GameScreen.GAME_WIDTH / 2) - (AssetLoader.gamePlayButtonTouched.getRegionWidth() / 2), midPointY + 20);
+            } else {
+                batch.draw(AssetLoader.gamePlayButtonNormal, (GameScreen.GAME_WIDTH / 2) - (AssetLoader.gamePlayButtonNormal.getRegionWidth() / 2), midPointY + 20);
 
             }
 

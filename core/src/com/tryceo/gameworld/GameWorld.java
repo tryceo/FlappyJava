@@ -12,9 +12,9 @@ import com.tryceo.gameobjects.ScrollableHandler;
  */
 public class GameWorld {
 
-    ScrollableHandler handler;
     public static float groundPosY;
     public int midPointY;
+    ScrollableHandler handler;
     private Coffee coffee;
     private Rectangle ground;
 
@@ -22,11 +22,6 @@ public class GameWorld {
     private int score;
 
     private GameState currentState;
-
-    public enum GameState{
-        READY, RUNNING, GAMEOVER
-    }
-
 
     public GameWorld(int midPointY) {
         currentState = GameState.READY;
@@ -76,41 +71,41 @@ public class GameWorld {
 
     }
 
-    public int getMidPointY(){
+    public int getMidPointY() {
         return midPointY;
     }
 
-
-    public boolean isReady(){
+    public boolean isReady() {
         return currentState == GameState.READY;
     }
 
-    public boolean isGameOver(){
+    public boolean isGameOver() {
         return currentState == GameState.GAMEOVER;
     }
 
-    public boolean isRunning(){
+    public boolean isRunning() {
         return currentState == GameState.RUNNING;
     }
 
-    public void start(){
+    public void start() {
         currentState = GameState.RUNNING;
     }
 
-    public void restart(){
+    public void restart() {
         score = 0;
         coffee.restart(midPointY);
         handler.restart();
         currentState = GameState.READY;
     }
 
-    public void setTouchedDown(boolean touchedDown){
+    public boolean getTouchedDown() {
+        return touchedDown;
+    }
+
+    public void setTouchedDown(boolean touchedDown) {
         this.touchedDown = touchedDown;
     }
 
-    public boolean getTouchedDown(){
-        return touchedDown;
-    }
     public int getScore() {
         return score;
     }
@@ -125,5 +120,9 @@ public class GameWorld {
 
     public ScrollableHandler getHandler() {
         return handler;
+    }
+
+    public enum GameState {
+        READY, RUNNING, GAMEOVER
     }
 }
